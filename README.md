@@ -2,7 +2,9 @@
 
 ## Setup
 
-`chmod +x setup && ./setup`
+Run the following...
+
+`chmod +x startup && ./startup`
 
 </br>
 
@@ -10,7 +12,6 @@ If you run into issues with your ssh-key, remove the current localhost key with
 
 `ssh-keygen -f "/home/dev/.ssh/known_hosts" -R "localhost"`
 
-</br>
 </br>
 
 ## Cloning a repository
