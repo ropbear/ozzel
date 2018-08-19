@@ -1,5 +1,7 @@
 # ozzel
 
+![Commander Ozzel](https://vignette.wikia.nocookie.net/starwars/images/9/90/Ozzel.jpg/revision/latest/scale-to-width-down/500?cb=20090331015238)
+
 ## Setup
 
 Run the following...
