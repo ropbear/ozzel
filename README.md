@@ -1,8 +1,14 @@
 # ozzel
 
+<p align="center">
+  <img src="https://vignette.wikia.nocookie.net/starwars/images/9/90/Ozzel.jpg/revision/latest/scale-to-width-down/500?cb=20090331015238" width="500" title="Commander Ozzel"
+</p>
+
 ## Setup
 
-`chmod +x setup && ./setup`
+Run the following...
+
+`chmod +x startup && ./startup`
 
 </br>
 
@@ -10,7 +16,6 @@ If you run into issues with your ssh-key, remove the current localhost key with
 
 `ssh-keygen -f "/home/dev/.ssh/known_hosts" -R "localhost"`
 
-</br>
 </br>
 
 ## Cloning a repository
