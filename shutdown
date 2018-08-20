@@ -1,1 +1,13 @@
 #!/bin/sh
+# Script to safely remove docker containers
+
+git_container=$(eval "sudo docker ps -a | grep git-server | cut -c -12")
+sudo docker stop $(echo $git_container) > /dev/null 
+sudo docker rm $(echo $git_container) > /dev/null 
+sudo docker image rm "git-server" > /dev/null 
+sudo rm -rf scripts/admin/
+web_container=$(eval "sudo docker ps -a | grep web-server | cut -c -12")
+sudo docker stop $(echo $web_container) > /dev/null 
+sudo docker rm $(echo $web_container) > /dev/null 
+sudo docker image rm "web-server" > /dev/null 
+echo "[#] Removal script complete"

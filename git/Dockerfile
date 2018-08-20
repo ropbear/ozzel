@@ -17,26 +17,29 @@ FROM alpine:latest
 WORKDIR /git-server
 
 # Copy scripts to server dir
-ADD ./entrypoint.sh /git-server
+COPY ./entrypoint.sh /git-server/entrypoint.sh
+ADD ./authorized_keys /keys/authorized_keys
 
 # Install pre-reqs [git, ssh], use --no-cache to not cache the index on the container
-RUN apk add --no-cache\
+RUN apk add --no-cache \
   # setup git, ssh
   openssh git &&\
-  which sshd &&\
 
   #create admin repo
   mkdir -p /git-server/repositories/admin.git &&\
   cd /git-server/repositories/admin.git &&\
   git init --bare --shared=true &&\
-  cd / &&\
   chmod -Rf 777 /git-server/repositories &&\
 
   # add admin user
   adduser admin -D -h /git-server/repositories/ &&\
+  chown -R admin:admin /keys &&\
+  chmod 700 /keys/authorized_keys &&\
   echo -e "empiredidnothingwrong\nempiredidnothingwrong" | passwd admin
   
+COPY sshd_config /etc/ssh/sshd_config
+
 # Expose SSH (no UI, so no 4443)
 EXPOSE 22
 
-ENTRYPOINT ["/git-server/entrypoint.sh"]
+ENTRYPOINT /git-server/entrypoint.sh

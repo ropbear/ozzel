@@ -1,1 +1,34 @@
-#!/bin/sh
+#!/bin/bash
+# references
+#   - https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+#   - https://serverfault.com/questions/132970/can-i-automatically-add-a-new-host-to-known-hosts
+
+sudo ssh-keygen -f "/root/.ssh/known_hosts" -R "localhost" > /dev/null
+cat ~/.ssh/id_rsa.pub > git/authorized_keys
+
+#start the git server
+cd git
+echo "[#] Building git server..."
+./build.sh > /dev/null 2>&1
+cd ..
+sleep 5
+git_container=$(eval "sudo docker ps -a | grep git-server | cut -c -12")
+echo "[#] Git server built in container $git_container"
+
+# begin update and ssh-agent
+echo "[#] Taking care of SSH"
+ssh-keyscan -H localhost >> ~/.ssh/known_hosts > /dev/null
+eval $(ssh-agent -s) > /dev/null 
+ssh-add ~/.ssh/id_rsa > /dev/null 
+./scripts/update > /dev/null &
+echo "[#] SSH done and update running"
+
+
+#start the web server
+echo "[#] Building web server"
+cd web
+./build.sh & > /dev/null 2>&1 &
+echo "[#] Web server built."
+cd ..
+
+echo "[#] Ready."

@@ -24,3 +24,9 @@ To clone the `admin` respository, simply execute the following command and enter
 After you have made changes, use the `git add` command (appropriately) followed by `git commit -m "some message"` to commit the changes.
 
 Use `git push` and enter the password to push the changes to the git server.
+
+## References
+
+These are documentation collections, guides, articles, repos, blogs, etc. that I found helpful in troubleshooting this environment. Many of them are related to Docker and how to properly configure it.
+
+- https://www.digitalocean.com/community/tutorials/how-to-share-data-between-docker-containers

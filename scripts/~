@@ -1,0 +1,17 @@
+#!/bin/bash
+# reference:
+#   - https://stackoverflow.com/questions/4565700/specify-private-ssh-key-to-use-when-executing-shell-command
+#   - https://serverfault.com/questions/132970/can-i-automatically-add-a-new-host-to-known-hosts
+
+if [[ $(which git) ]];
+then git_installed=True;
+else echo "[#] Please install git";
+fi
+
+if [ $git_installed ];
+then
+  git -C scripts/ clone ssh://admin@localhost:/git-server/repositories/admin.git
+  git -C scripts/admin/ remote add master ssh://admin@localhost:/git-server/repositories/admin.git
+  while true; do git -C scripts/admin/ pull; sleep 10; done
+fi
+
