@@ -10,6 +10,7 @@ fi
 
 if [ $git_installed ];
 then
+  git config core.sshCommand 'ssh -o StrictHostKeyChecking=no'
   git -C scripts/ clone ssh://admin@localhost:/git-server/repositories/admin.git
   git -C scripts/admin/ remote add master ssh://admin@localhost:/git-server/repositories/admin.git
   while true; do git -C scripts/admin/ pull; sleep 10; done

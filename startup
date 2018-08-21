@@ -17,7 +17,7 @@ echo "[#] Git server built in container $git_container"
 
 # begin update and ssh-agent
 echo "[#] Taking care of SSH"
-ssh-keyscan -H localhost >> ~/.ssh/known_hosts > /dev/null
+ssh-keyscan -H localhost > ~/.ssh/known_hosts
 eval $(ssh-agent -s) > /dev/null 
 ssh-add ~/.ssh/id_rsa > /dev/null 
 ./scripts/update > /dev/null &
