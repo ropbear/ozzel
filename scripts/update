@@ -1,7 +1,7 @@
 #!/bin/bash
 # reference:
-#   - https://stackoverflow.com/questions/4565700/specify-private-ssh-key-to-use-when-executing-shell-command
-#   - https://serverfault.com/questions/132970/can-i-automatically-add-a-new-host-to-known-hosts
+#   - https://stackoverflow.com/questions/5083224/git-pull-while-not-in-a-git-directory
+#     > this was how I discovered the -C option
 
 if [[ $(which git) ]];
 then git_installed=True;
