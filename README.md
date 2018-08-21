@@ -13,7 +13,7 @@ Ensure you are able to execute the startup and shutdown scripts.
 
 To start, run `sudo ./startup` in a terminal. The output is groomed all the way, so it might be a bit ugly in the beta version. Also, there are no debugging features in the beta. 
 
-Why sudo? Docker requires sudo.
+Why sudo? The short answer is Docker requires sudo.
 
 
 If you navigate to https://localhost/, you should now see a webpage with no output.
