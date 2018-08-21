@@ -6,10 +6,13 @@
 
 ## Setup
 
+Ensure Docker is installed locally and that you have an id_rsa SSH key which you know the password to. If you do not, generate one with `ssh-keygen` and follow the prompts.
+
+If you run into issues with the update script cloning the repository, it is likely that your id_rsa key is still locked.
+
 Ensure you are able to execute the startup and shutdown scripts.
 
 `chmod +x startup && ./startup`
-
 
 To start, run `sudo ./startup` in a terminal. The output is groomed all the way, so it might be a bit ugly in the beta version. Also, there are no debugging features in the beta. 
 
