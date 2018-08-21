@@ -23,7 +23,7 @@ If you navigate to https://localhost/, you should now see a webpage with no outp
 
 To clone the `admin` respository, simply execute the following command and enter the password.
 
-`git clone admin@localhost:admin.git`
+`git clone admin@localhost:/git-server/repositories/admin.git`
 
 It will ask you if you want to add the SSH fingerprint to the known_hosts, type `yes`. This will fail (there is already a localhost), but the repository will still be cloned.
 
