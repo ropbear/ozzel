@@ -6,15 +6,20 @@
 
 ## Setup
 
-Run the following...
+Ensure you are able to execute the startup and shutdown scripts.
 
 `chmod +x startup && ./startup`
 
 </br>
 
-If you run into issues with your ssh-key, remove the current localhost key with
 
-`ssh-keygen -f "/home/dev/.ssh/known_hosts" -R "localhost"`
+To start, run `sudo ./startup` in a terminal. The output is groomed all the way, so it might be a bit ugly in the beta version. Also, there are no debugging features in the beta. 
+
+Why sudo? Docker requires sudo.
+
+</br>
+
+If you navigate to https://localhost/, you should now see a webpage with no output.
 
 </br>
 
@@ -24,14 +29,24 @@ To clone the `admin` respository, simply execute the following command and enter
 
 `git clone admin@localhost:admin.git`
 
-## Making a commit
+It will ask you if you want to add the SSH fingerprint to the known_hosts, type `yes`. This will fail (there is already a localhost), but the repository will still be cloned.
 
-After you have made changes, use the `git add` command (appropriately) followed by `git commit -m "some message"` to commit the changes.
+When adding scripts, be sure they have the `.sh` file type. They need not be executable, but you can chmod them if you would like.
 
-Use `git push` and enter the password to push the changes to the git server.
+Workflow for commiting changes:
+
+```
+git add --all
+git commit -m "some message"
+git push
+```
+
+Now navigate to https://localhost to see the output. The service updates every 10 seconds, and unfortunately you have to manually refresh the page.
+
+## Shutdown
+
+In the ozzel directory, running `sudo ./shutdown` should remove all of the docker containers and images.
 
 ## References
 
-These are documentation collections, guides, articles, repos, blogs, etc. that I found helpful in troubleshooting this environment. Many of them are related to Docker and how to properly configure it.
-
-- https://www.digitalocean.com/community/tutorials/how-to-share-data-between-docker-containers
+Throughout the files in this repo you will find refernces to blogs, articles, documentation, and other resources. The only file that was completely copied was the sshd_config, which has the refence link at the top. This was more out of convenience than out of wanting to copy someone's work. The rest I used as examples of "how to do 'A' with 'B' constraints" or unique configurations. If you have any questions regarding code, please feel free to ask!
