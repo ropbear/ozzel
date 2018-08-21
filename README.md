@@ -46,3 +46,7 @@ In the ozzel directory, running `sudo ./shutdown` should remove all of the docke
 ## References
 
 Throughout the files in this repo you will find refernces to blogs, articles, documentation, and other resources. The only file that was completely copied was the sshd_config, which has the refence link at the top. This was more out of convenience than out of wanting to copy someone's work. The rest I used as examples of "how to do 'A' with 'B' constraints" or unique configurations. If you have any questions regarding code, please feel free to ask!
+
+## Beta Version Notes
+
+By no means do I consider this a secure service. Given the prompt and the amount of time I had to work on it, I figured focusing on security would not be worth my efforts.
