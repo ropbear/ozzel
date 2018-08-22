@@ -3,32 +3,44 @@
 #   - https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 #   - https://serverfault.com/questions/132970/can-i-automatically-add-a-new-host-to-known-hosts
 
-sudo ssh-keygen -f "/root/.ssh/known_hosts" -R "localhost" > /dev/null
+#create the log
+touch logs/startup.log
+echo "" > logs/startup.log
+
+#move public key to the git server
 cat ~/.ssh/id_rsa.pub > git/authorized_keys
 
 #start the git server
 cd git
 echo "[#] Building git server..."
-./build.sh > /dev/null 2>&1
+./build.sh >> ../logs/startup.log 2>&1
 cd ..
+# wait for the git server ssh-keygen
 sleep 5
+
+#retrieve the git container ID
 git_container=$(eval "sudo docker ps -a | grep git-server | cut -c -12")
 echo "[#] Git server built in container $git_container"
 
 # begin update and ssh-agent
 echo "[#] Taking care of SSH"
-ssh-keyscan -H localhost > ~/.ssh/known_hosts
-eval $(ssh-agent -s) > /dev/null 
-ssh-add ~/.ssh/id_rsa > /dev/null 
-./scripts/update > /dev/null &
-echo "[#] SSH done and update running"
 
+# We need to update both root and the current user's known-hosts, since 'update' is run with sudo but the user clones the repo without sudo
+{
+ssh-keygen -f "~/.ssh/known_hosts" -R "localhost"
+ssh-keygen -f "/root/.ssh/known_hosts" -R "localhost"
+ssh-keyscan -H localhost >> ~/.ssh/known_hosts
+ssh-keyscan -H localhost >> /root/.ssh/known_hosts
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_rsa
+./scripts/update &
+} >> logs/startup.log 2>&1
+echo "[#] SSH done and update running"
 
 #start the web server
 echo "[#] Building web server"
 cd web
-./build.sh & > /dev/null 2>&1 &
-echo "[#] Web server built."
+./build.sh &
+echo "[#] Web server building, you can now push your changes."
 cd ..
 
-echo "[#] Ready."

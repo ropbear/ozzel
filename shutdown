@@ -1,14 +1,16 @@
 #!/bin/sh
 # Script to safely remove docker containers
-
+touch logs/shutdown.log
+{
 git_container=$(eval "sudo docker ps -a | grep git-server | cut -c -12")
-sudo docker stop $(echo $git_container) > /dev/null 
-sudo docker rm $(echo $git_container) > /dev/null 
-sudo docker image rm "git-server" > /dev/null 
+sudo docker stop $(echo $git_container)
+sudo docker rm $(echo $git_container)
+sudo docker image rm "git-server"
 sudo rm -rf scripts/admin/
 sudo rm git/authorized_keys
 web_container=$(eval "sudo docker ps -a | grep web-server | cut -c -12")
-sudo docker stop $(echo $web_container) > /dev/null 
-sudo docker rm $(echo $web_container) > /dev/null 
-sudo docker image rm "web-server" > /dev/null 
+sudo docker stop $(echo $web_container)
+sudo docker rm $(echo $web_container)
+sudo docker image rm "web-server"
+} > logs/shutdown.log 2>&1
 echo "[#] Removal script complete"
