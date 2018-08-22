@@ -8,7 +8,7 @@
 
 Ensure Docker is installed locally and that you have an id_rsa SSH key which you know the password to. If you do not, generate one with `ssh-keygen` and follow the prompts.
 
-If you run into issues with the update script cloning the repository, it is likely that your id_rsa key is still locked. `NOTE: I began having ssh issues with the update script the morning of the submission deadline. Of course it was working fine the night before. Such is life.`
+If you run into issues with the update script cloning the repository, it is likely that your id_rsa key is still locked. `NOTE: I began having ssh issues with the update script the morning of the submission deadline. Of course it was working fine the night before. This ended up being because of the privs I was cloning the repo with. The issue is fixed in this branch.`
 
 Ensure you are able to execute the startup and shutdown scripts.
 
