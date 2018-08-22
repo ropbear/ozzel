@@ -16,10 +16,13 @@ echo "[#] Git server built in container $git_container"
 
 # begin update and ssh-agent
 echo "[#] Taking care of SSH"
+
+# We need to update both root and the current user's known-hosts, since 'update' is run with sudo but the user clones the repo without sudo
 ssh-keygen -f "~/.ssh/known_hosts" -R "localhost"
 ssh-keygen -f "/root/.ssh/known_hosts" -R "localhost"
 ssh-keyscan -H localhost >> ~/.ssh/known_hosts
 ssh-keyscan -H localhost >> /root/.ssh/known_hosts
+
 eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_rsa
 ./scripts/update &
